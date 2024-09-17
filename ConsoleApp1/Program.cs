@@ -26,7 +26,7 @@ class Quiz
 
         if (name == "gaster")
         {
-
+            bogosort();
         }
 
         Console.WriteLine($"\nAlright {name}, let's get started!\n");
@@ -35,8 +35,10 @@ class Quiz
         firstQuestion(ref score);
         secondQ(ref score);
         thirdQ(ref score);
+        fourthQ(ref score);
+        finalQ(ref score);
 
-        Console.WriteLine($"\nCongratulations, {name}! Your final score is: {score}/3");
+        Console.WriteLine($"\nCongratulations, {name}! Your final score is: {score}/6");
     }
 
     static void firstQuestion(ref int score)
@@ -45,7 +47,7 @@ class Quiz
         Console.WriteLine("a) The Mark I");
         Console.WriteLine("b) T-54");
         Console.WriteLine("c) M48 Patton");
-        string answer = Console.ReadLine()?.Trim().ToLower();
+        string? answer = Console.ReadLine()?.Trim().ToLower();
 
         if (answer == "a")
         {
@@ -75,7 +77,7 @@ class Quiz
         Console.WriteLine("a) Panther Tank");
         Console.WriteLine("b) T-34");
         Console.WriteLine("c) Churchill Tank");
-        string answer = Console.ReadLine()?.Trim().ToLower();
+        string? answer = Console.ReadLine()?.Trim().ToLower();
 
         if (answer == "a")
         {
@@ -105,7 +107,7 @@ class Quiz
         Console.WriteLine("a) Challenger 2");
         Console.WriteLine("b) Leopard 2A7");
         Console.WriteLine("c) M1 Abrams");
-        string answer = Console.ReadLine()?.Trim().ToLower();
+        string? answer = Console.ReadLine()?.Trim().ToLower();
 
         if (answer == "a")
         {
@@ -119,6 +121,76 @@ class Quiz
         else if (answer == "c")
         {
             Console.WriteLine("\nNo, it is not the M1 Abrams. It has a maximum speed of approximately 67 km/h; the right answer was the Leopard 2A7 (72 km/h).");
+        }
+        else
+        {
+            Error();
+        }
+    }
+
+    static void fourthQ(ref int score)
+    {
+        middleLongPause();
+        Console.WriteLine("Only two questions left! To the fourth one:");
+        middleLongPause();
+        Console.WriteLine("What is the biggest tank?");
+        Console.WriteLine("a) T95");
+        Console.WriteLine("b) Char B1");
+        Console.WriteLine("c) Panzer VIII Maus");
+        string? answer = Console.ReadLine()?.Trim().ToLower();
+
+        if (answer == "a")
+        {
+            Console.WriteLine("\nNo, it is not the T95 (T28 Super Heavy Tank). It has a size of Approximately 95 tons; the right answer was the Panzer VIII Maus (188 tons).");
+        }
+        else if (answer == "b")
+        {
+            Console.WriteLine("\nNo, it is not the Char B1. It has a size of Approximately 35 tons; the right answer was the Panzer VIII Maus (188 tons).");
+        }
+        else if (answer == "c")
+        {
+            string RelaxItsCalledDarkHumour = "almost as heavy as your mother";
+            Console.WriteLine($"\nCorrect! It is indeed the Panzer VIII Maus with a size of 188 tons {RelaxItsCalledDarkHumour}");
+            score++;
+
+            Thread.Sleep(1);
+
+            Console.CursorTop--;
+            Console.CursorLeft = 0;
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.CursorLeft = 0;
+            Console.Write($"Correct! It is indeed the Panzer VIII Maus with a size of 188 tons.");
+        }
+
+        else
+        {
+            Error();
+        }
+    }
+
+    static void finalQ(ref int score)
+    {
+        middleLongPause();
+        Console.WriteLine("Alright and for the final question... (this one is worth 2 points)");
+        middleLongPause();
+        Console.WriteLine("Which tank was the first to enter service in World War II?");
+        Console.WriteLine("a) T-34");
+        Console.WriteLine("b) Panzer III");
+        Console.WriteLine("c) Matilda II");
+        string? answer = Console.ReadLine()?.Trim().ToLower();
+
+        if (answer == "a")
+        {
+            Console.WriteLine("\nNo, the T-34 entered service in 1940. The right answer was the Panzer III (1937).");
+        }
+        else if (answer == "b")
+        {
+            Console.WriteLine("\nCorrect! The Panzer III was among the first tanks to see service in World War II.");
+            score += 5;
+        }
+        else if (answer == "c")
+        {
+            Console.WriteLine("\nNo, the Matilda II was introduced later. The right answer was the Panzer III (1937).");
         }
         else
         {
@@ -152,5 +224,64 @@ class Quiz
     static void longPause()
     {
         Thread.Sleep(3000);
+    }
+
+    static void bogosort()
+    {
+        List<int> numbers = new List<int>();
+        Random rnd = new Random();
+
+        int iteration = 0;
+        bool isSorted = false;
+
+        for (int i = 0; i < 5; i++)
+        {
+            numbers.Add(rnd.Next(0, 101));
+        }
+
+        numbers.Add(69);
+
+        while (!isSorted)
+        {
+            iteration++;
+
+            Console.Write($"bogosort iteration {iteration}: ");
+
+            foreach (int number in numbers)
+            {
+                Console.Write($"{number} ");
+            }
+
+            Console.WriteLine(); 
+
+            shuffle(numbers); 
+
+            Console.WriteLine("\n"); 
+        }
+
+        Console.WriteLine("Sorted!");
+    }
+
+    static bool IsSorted(List<int> list)
+    {
+        for (int i = 1; i < list.Count; i++)
+        {
+            if (list[i] < list[i - 1])
+                return false;
+        }
+        return true;
+    }
+
+    static void shuffle(List<int> list)
+    {
+        Random rnd = new Random();
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = rnd.Next(0, i + 1);
+
+            int temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
     }
 }
